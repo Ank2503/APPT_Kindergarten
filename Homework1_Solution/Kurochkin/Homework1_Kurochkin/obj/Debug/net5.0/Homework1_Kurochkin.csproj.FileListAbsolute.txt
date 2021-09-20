@@ -1,0 +1,15 @@
+C:\Users\AndriyKurochkin(Appt\source\repos\Homework1_Kurochkin\Homework1_Kurochkin\bin\Debug\net5.0\Homework1_Kurochkin.exe
+C:\Users\AndriyKurochkin(Appt\source\repos\Homework1_Kurochkin\Homework1_Kurochkin\bin\Debug\net5.0\Homework1_Kurochkin.deps.json
+C:\Users\AndriyKurochkin(Appt\source\repos\Homework1_Kurochkin\Homework1_Kurochkin\bin\Debug\net5.0\Homework1_Kurochkin.runtimeconfig.json
+C:\Users\AndriyKurochkin(Appt\source\repos\Homework1_Kurochkin\Homework1_Kurochkin\bin\Debug\net5.0\Homework1_Kurochkin.runtimeconfig.dev.json
+C:\Users\AndriyKurochkin(Appt\source\repos\Homework1_Kurochkin\Homework1_Kurochkin\bin\Debug\net5.0\Homework1_Kurochkin.dll
+C:\Users\AndriyKurochkin(Appt\source\repos\Homework1_Kurochkin\Homework1_Kurochkin\bin\Debug\net5.0\ref\Homework1_Kurochkin.dll
+C:\Users\AndriyKurochkin(Appt\source\repos\Homework1_Kurochkin\Homework1_Kurochkin\bin\Debug\net5.0\Homework1_Kurochkin.pdb
+C:\Users\AndriyKurochkin(Appt\source\repos\Homework1_Kurochkin\Homework1_Kurochkin\obj\Debug\net5.0\Homework1_Kurochkin.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\AndriyKurochkin(Appt\source\repos\Homework1_Kurochkin\Homework1_Kurochkin\obj\Debug\net5.0\Homework1_Kurochkin.AssemblyInfoInputs.cache
+C:\Users\AndriyKurochkin(Appt\source\repos\Homework1_Kurochkin\Homework1_Kurochkin\obj\Debug\net5.0\Homework1_Kurochkin.AssemblyInfo.cs
+C:\Users\AndriyKurochkin(Appt\source\repos\Homework1_Kurochkin\Homework1_Kurochkin\obj\Debug\net5.0\Homework1_Kurochkin.csproj.CoreCompileInputs.cache
+C:\Users\AndriyKurochkin(Appt\source\repos\Homework1_Kurochkin\Homework1_Kurochkin\obj\Debug\net5.0\Homework1_Kurochkin.dll
+C:\Users\AndriyKurochkin(Appt\source\repos\Homework1_Kurochkin\Homework1_Kurochkin\obj\Debug\net5.0\ref\Homework1_Kurochkin.dll
+C:\Users\AndriyKurochkin(Appt\source\repos\Homework1_Kurochkin\Homework1_Kurochkin\obj\Debug\net5.0\Homework1_Kurochkin.pdb
+C:\Users\AndriyKurochkin(Appt\source\repos\Homework1_Kurochkin\Homework1_Kurochkin\obj\Debug\net5.0\Homework1_Kurochkin.genruntimeconfig.cache
