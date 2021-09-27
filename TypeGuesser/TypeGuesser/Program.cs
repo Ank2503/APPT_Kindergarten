@@ -28,6 +28,9 @@ namespace TypeGuesser
             if (converter.IsValid(num))
                 return "true";
 
+            if (num.Contains(".") && type != typeof(float) || type != typeof(double))
+                return "false (not integer value)";
+
             if (num.StartsWith("-"))
             {
                 var diff = Convert.ToDouble(type.GetField("MinValue").GetValue(null)) - Convert.ToDouble(num);
