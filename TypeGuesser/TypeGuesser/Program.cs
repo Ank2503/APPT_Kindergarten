@@ -28,7 +28,7 @@ namespace TypeGuesser
             if (converter.IsValid(num))
                 return "true";
 
-            if (num.Contains(".") && type != typeof(float) || type != typeof(double))
+            if (num.Contains(".") && (type != typeof(float) || type != typeof(double)))
                 return "false (not integer value)";
 
             if (num.StartsWith("-"))
