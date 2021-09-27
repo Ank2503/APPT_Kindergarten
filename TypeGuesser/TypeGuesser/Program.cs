@@ -23,24 +23,22 @@ namespace TypeGuesser
 
         static private string IsFit(string num, Type type)
         {
-            var converter = TypeDescriptor.GetConverter(type);
+            var converter = TypeDescriptor.GetConverter(type);            
 
-            if (converter.IsValid(num))
-                return "true";
-
-            if (num.Contains(".") && (type != typeof(float) || type != typeof(double)))
+            if (num.Contains(".") && type != typeof(float) && type != typeof(double))
                 return "false (not integer value)";
 
+            if ((type == typeof(float) && float.IsInfinity((float)converter.ConvertFromString(num))) ||
+                (type == typeof(double) && double.IsInfinity((double)converter.ConvertFromString(num))))
+                return "false (infinity)";
+
+            if (converter.IsValid(num))
+                return "true";            
+
             if (num.StartsWith("-"))
-            {
-                var diff = Convert.ToDouble(type.GetField("MinValue").GetValue(null)) - Convert.ToDouble(num);
-                return $"false (under limit = {diff})";
-            }
+                return $"false (under limit = {Convert.ToDouble(type.GetField("MinValue").GetValue(null)) - Convert.ToDouble(num)})";         
             else 
-            {
-                var diff = Convert.ToDouble(num) - Convert.ToDouble(type.GetField("MaxValue").GetValue(null));
-                return $"false (over limit = {diff})";
-            }             
+                return $"false (over limit = {Convert.ToDouble(num) - Convert.ToDouble(type.GetField("MaxValue").GetValue(null))})";                     
         }
 
         static private void WaitForEnter()
