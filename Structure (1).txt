@@ -1,0 +1,26 @@
+-C
+--Windows
+---System32
+----*cmd.exe
+----*calc.exe
+----*dllhost.exe
+----drivers
+-----*hosts
+--Program Files
+---Microsoft
+----Office
+-----*Word.exe
+-----*Excel.lnk
+-----*PowerPoint.exe
+-----Visio
+------*Visio.exe
+--Users
+---Administrator
+----Desktop
+-----*Word.lnk
+-----*PowerPoint.lnk
+-----*Calculator.lnk
+-----MyNudePhotos
+------*Bathroom.jpg
+------*SeaBeach.lnk
+------*JobInterview.mp4
