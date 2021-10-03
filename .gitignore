@@ -4,5 +4,8 @@
 
 /.vs
 /TypeGuesser/TypeGuesser/obj
-/TypeGuesser/.vs/TypeGuesser
-/TypeGuesser/TypeGuesser/bin/Debug/netcoreapp3.1
+/TypeGuesser/.vs
+/TypeGuesser/TypeGuesser/bin
+/FileSystemParser/.vs
+/FileSystemParser/FileSystemParser/obj
+/FileSystemParser/FileSystemParser/bin
