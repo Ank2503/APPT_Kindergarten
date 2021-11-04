@@ -33,6 +33,14 @@ namespace Homework3
             people.TakenBooks.Add(book);
         }
 
+        public static Book Copy(People people, Book book)
+        {
+            if (people.GetType() == typeof(Visitors))
+                throw new YouAreNotVisitorException();
+
+            return new Book(book.year, book.name + "-1.0", book.pageCount, book.wearLevel);
+        }
+
         public static Book FindBook(string bookName)
         {
             foreach (var item in Storage)

@@ -31,10 +31,11 @@ namespace Homework3
     public class Visitors : People
     {
         public Visitors(string Name, uint Age, string Gender) : base(Name, Age, Gender) { }
+      
     }
 
     public class Employers : People
-    {
+    {       
         public Employers(string Name, uint Age, string Gender) : base(Name, Age, Gender) { }
     }
 }

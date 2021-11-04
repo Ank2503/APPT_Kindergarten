@@ -13,6 +13,8 @@ namespace Homework3
         public uint year;
         public uint pageCount;
         public int wearLevel { get; set; }
+        public delegate void WearoutHandler(Book book);
+        public event WearoutHandler OnUsedBookReturn;
 
         public Book(uint Year, string Name, uint PageCount, int WearLevel)
         {
@@ -37,14 +39,8 @@ namespace Homework3
         {
             if (this.wearLevel < 5)
                 this.wearLevel++;
-            else
-                Console.WriteLine("WearLevel Override for " + this.name);
-
-        }
-
-        public Book Copy()
-        {
-            return new Book(this.year, this.name+"-1.0", this.pageCount, this.wearLevel);
+            if(this.wearLevel > 3)
+                OnUsedBookReturn?.Invoke(this);
         }
     }
 
