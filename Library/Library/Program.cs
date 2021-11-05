@@ -1,27 +1,24 @@
 ﻿using System;
 using System.IO;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Library
 {
     class Program
     {
-        static void addBooks()
+        static void AddBooks()
         {
             var lines = File.ReadAllLines(@".\books.txt");
-            Random rand = new Random();
-            int tempBook = 0;
-            int tempMagazine = 0;
-            string[] papersMetadata = new string[4];
+            Random random = new Random();
+            int tempBook;
+            int tempMagazine;
+            string[] papersMetadata;
             for (uint i = 0; i < 10; i++)
             {
                 do
                 {
-                    tempBook = rand.Next(0, lines.Length - 1);
-                    tempMagazine = rand.Next(0, lines.Length - 1);
+                    tempBook = random.Next(0, lines.Length - 1);
+                    tempMagazine = random.Next(0, lines.Length - 1);
                 } while (lines[tempBook].StartsWith("BOOK") && lines[tempMagazine].StartsWith("MAGAZINE"));
 
                 papersMetadata = lines[tempBook].Split('|');
@@ -34,7 +31,7 @@ namespace Library
             }
         }
 
-        static void addPeople()
+        static void AddPeople()
         {
             var lines = File.ReadAllLines(@".\female.txt");
             Random rand = new Random();
@@ -54,11 +51,11 @@ namespace Library
             }
         }
 
-        static People[] takeBooks()
+        static AbstractPeople[] TakeBooks()
         {
-            Random rand = new Random();
+            //Random rand = new Random();
             int temp = -1;
-            People[] takenBooked = new People[5];
+            AbstractPeople[] takenBooked = new AbstractPeople[5];
             for (int i = 15; i < 20; i++)
             {
                 temp++;
@@ -69,12 +66,12 @@ namespace Library
             return takenBooked;
         }
 
-        static void returnBooks(People[] debtPeople)
+        static void ReturnBooks(AbstractPeople[] debtPeople)
         {
             for (int i = 0; i < debtPeople.Length; i++)
             {
                 Console.WriteLine(debtPeople[i].TakenBooks.Count);
-                Console.WriteLine("Name " + debtPeople[i].name);
+                Console.WriteLine("Name " + debtPeople[i].Name);
                 for (int j = 0; j < 4; j++)
                 {
                     debtPeople[i].Return(debtPeople[i].TakenBooks.FirstOrDefault());
@@ -86,21 +83,21 @@ namespace Library
         static void Main(string[] args)
         {
             Console.WriteLine("Library start count " + Library.GetNonTakenBooks());
-            addBooks();
+            AddBooks();
             Console.WriteLine("Library after adding books and magazines = " + Library.GetNonTakenBooks());
-            addPeople();
-            People[] peopleWithBooks = takeBooks();
+            AddPeople();
+            AbstractPeople[] peopleWithBooks = TakeBooks();
             Console.WriteLine("Library after taking the books " + Library.GetNonTakenBooks());
             
             Console.WriteLine();
 
-            returnBooks(peopleWithBooks);
+            ReturnBooks(peopleWithBooks);
             Console.WriteLine("Returned books for first time " + Library.GetNonTakenBooks());
 
             for (int i = 0; i < 5; i++)
             {
-                peopleWithBooks = takeBooks();
-                returnBooks(peopleWithBooks);
+                peopleWithBooks = TakeBooks();
+                ReturnBooks(peopleWithBooks);
             }
 
             Console.WriteLine("Books after all iterations " + Library.GetNonTakenBooks());

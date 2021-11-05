@@ -1,38 +1,45 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Library
 {
-    public class People
+    public abstract class AbstractPeople : IComparable
     {
-        public string name;
-        public uint age;
-        public string gender;
+        public readonly string Name;
+        public readonly uint Age;
+        public readonly string Gender;
         public List<Book> TakenBooks = new List<Book>();
 
 
-        public People(string Name, uint Age, string Gender)
+        public AbstractPeople(string name, uint age, string gender)
         {
-            this.name = Name;
-            this.age = Age;
-            this.gender = Gender;
+            Name = name;
+            Age = age;
+            Gender = gender;
+        }
+
+        public int CompareTo(object obj)
+        {
+            if (obj is AbstractPeople p)
+                return Name.CompareTo(p.Name);
+            else
+                throw new Exception("Can't compare person objects");
         }
 
         public void Return(Book book)
         {
-            this.TakenBooks.Remove(book);
+            TakenBooks.Remove(book);
             Library.Storage.Add(book);
         }
     }
 
-    public class Visitors : People
+    public class Visitors : AbstractPeople
     {
-        public Visitors(string Name, uint Age, string Gender) : base(Name, Age, Gender) { }
+        public Visitors(string name, uint age, string gender) : base(name, age, gender) { }
     }
 
-    public class Employers : People
+    public class Employers : AbstractPeople
     {
-        public Employers(string Name, uint Age, string Gender) : base(Name, Age, Gender) { }
+        public Employers(string name, uint age, string gender) : base(name, age, gender) { }
     }
 }

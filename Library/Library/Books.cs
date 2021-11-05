@@ -1,76 +1,75 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Library
 {
-    public class Book
+    public class Book : ICloneable
     {
-        string id;
-        public string name { get; set; }
-        public uint year;
-        public uint pageCount;
-        public int wearLevel { get; set; }
+        public readonly string Id;
+        public readonly string Name;
+        public readonly uint Year;
+        public readonly uint PageCount;
+        public int WearLevel { get; set; }
 
-        public Book(uint Year, string Name, uint PageCount, int WearLevel)
+        public Book() { }
+
+        public Book(uint year, string name, uint pageCount, int wearLevel)
         {
-            this.id = Convert.ToBase64String(Guid.NewGuid().ToByteArray());
+            Id = Convert.ToBase64String(Guid.NewGuid().ToByteArray());
 
-            if (Year >= 800 && Year <= DateTime.Now.Year)
-                this.year = Year;
+            if (year >= 800 && year <= DateTime.Now.Year)
+                Year = year;
             else
-                this.year = (uint)DateTime.Now.Year;
+                Year = (uint)DateTime.Now.Year;
 
-            this.name = Name;
+            Name = name;
 
-            this.pageCount = PageCount;
+            PageCount = pageCount;
 
-            if (WearLevel >= 0 && WearLevel <= 5)
-                this.wearLevel = WearLevel;
+            if (wearLevel >= 0 && wearLevel <= 5)
+                WearLevel = wearLevel;
             else
-                this.wearLevel = 0;
+                WearLevel = 0;
         }
 
         public void IncreaseWearLevel()
         {
-            if (this.wearLevel < 5)
-                this.wearLevel++;
+            if (WearLevel < 5)
+                WearLevel++;
             else
-                Console.WriteLine("WearLevel Override for " + this.name);
-
+                Console.WriteLine("WearLevel Override for " + Name);
         }
 
-        public Book Copy()
+        public object Clone()
         {
-            return new Book(this.year, this.name + "-1.0", this.pageCount, this.wearLevel);
+            return new Book(Year, Name + "-1.0", PageCount, WearLevel);
         }
     }
 
     public class Magazine : Book
     {
-        public int number;
+        public readonly int Number;
 
-        public Magazine(int Number, uint Year, string Name, uint PageCount, int WearLevel) : base(Year, Name, PageCount, WearLevel)
+        public Magazine(int number, uint year, string name, uint pageCount, int wearLevel) : base(year, name, pageCount, wearLevel)
         {
-            if (Number < 0)
-                this.number = 0;
+            if (number < 0)
+                Number = 0;
 
-            else if (Number > 12)
-                this.number = 12;
+            else if (number > 12)
+                Number = 12;
 
             else
-                this.number = Number;
+                Number = number;
 
         }
 
         public static Magazine operator +(Magazine a, Magazine b)
         {
             return new Magazine(
-                (a.number + b.number) / 2,
-                a.year,
-                $"{a.name}, {b.name}",
-                (a.pageCount + b.pageCount) / 2,
-                a.wearLevel + b.wearLevel);
+                (a.Number + b.Number) / 2,
+                a.Year,
+                $"{a.Name}, {b.Name}",
+                (a.PageCount + b.PageCount) / 2,
+                a.WearLevel + b.WearLevel);
         }
     }
 }

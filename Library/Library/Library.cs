@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Linq;
 
 namespace Library
@@ -8,20 +7,20 @@ namespace Library
     static class Library
     {
         public static List<Book> Storage = new List<Book>();
-        public static List<People> Members = new List<People>();
+        public static List<AbstractPeople> Members = new List<AbstractPeople>();
         public static int GetNonTakenBooks() => Storage.Count;
 
-        public static List<People> LibraryMembers
+        public static List<AbstractPeople> LibraryMembers
         {
             get
             {
                 var array = Members.ToArray();
-                Array.Sort(array, (a, b) => string.Compare(a.name, b.name));
+                Array.Sort(array, (a, b) => string.Compare(a.Name, b.Name));
                 return array.ToList();
             }
         }
 
-        public static void Take(People people, Book book)
+        public static void Take(AbstractPeople people, Book book)
         {
             if (people.GetType() == typeof(Employers))
                 throw new YouAreNotVisitorException();
@@ -35,18 +34,18 @@ namespace Library
         {
             foreach (var item in Storage)
             {
-                if (item.name == bookName)
+                if (item.Name == bookName)
                     return item;
             }
             Console.WriteLine("Book with name " + bookName + " not found!");
             return null;
         }
 
-        public static People FindPeople(string peopleName)
+        public static AbstractPeople FindPeople(string peopleName)
         {
             foreach (var item in Members)
             {
-                if (item.name == peopleName)
+                if (item.Name == peopleName)
                     return item;
             }
             Console.WriteLine("People with name " + peopleName + " not found!");
