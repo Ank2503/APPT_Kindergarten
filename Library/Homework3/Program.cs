@@ -23,12 +23,12 @@ namespace Homework3
                 } while (lines[tempBook].StartsWith("BOOK") && lines[tempMagazine].StartsWith("MAGAZINE"));
 
                 papersMetadata = lines[tempBook].Split('|');
-                Book temp1 = new Book(Convert.ToUInt32(papersMetadata[2], 16), papersMetadata[1], Convert.ToUInt32(papersMetadata[2], 16), 0);
-                Library.Storage.Add(temp1);
+                Book newBook = new Book(Convert.ToUInt32(papersMetadata[2], 16), papersMetadata[1], Convert.ToUInt32(papersMetadata[2], 16), 0);
+                Library.Storage.Add(newBook);
 
                 papersMetadata = lines[tempMagazine].Split('|');
-                Magazine temp2 = new Magazine(0, Convert.ToUInt32(papersMetadata[2], 16), papersMetadata[1], Convert.ToUInt32(papersMetadata[2], 16), 0);
-                Library.Storage.Add(temp2);
+                Magazine newMagazine = new Magazine(0, Convert.ToUInt32(papersMetadata[2], 16), papersMetadata[1], Convert.ToUInt32(papersMetadata[2], 16), 0);
+                Library.Storage.Add(newMagazine);
             }
         }
 
@@ -41,13 +41,13 @@ namespace Homework3
             {
                 if(i<empPercent)
                 {
-                    Employers temp = new Employers(lines[rand.Next(0, lines.Length - 1)], (uint)rand.Next(14, 80), "typicalGender");
-                    Library.Members.Add(temp);
+                    Employers newEmployee = new Employers(lines[rand.Next(0, lines.Length - 1)], (uint)rand.Next(14, 80), "typicalGender");
+                    Library.Members.Add(newEmployee);
                 }
                 else
                 {
-                    Visitors temp = new Visitors(lines[rand.Next(0, lines.Length - 1)], (uint)rand.Next(14, 80), "typicalGender");
-                    Library.Members.Add(temp);
+                    Visitors newVisitor = new Visitors(lines[rand.Next(0, lines.Length - 1)], (uint)rand.Next(14, 80), "typicalGender");
+                    Library.Members.Add(newVisitor);
                 }
             }        
         }
@@ -72,7 +72,7 @@ namespace Homework3
             for (int i = 0; i < debtPeople.Length; i++)
             {
                 Console.WriteLine(debtPeople[i].TakenBooks.Count);
-                Console.WriteLine("Name" + debtPeople[i].name);
+                Console.WriteLine("Name" + debtPeople[i].Name);
                 for(int j = 0; j < 4; j++)
                 {
                     debtPeople[i].Return(debtPeople[i].TakenBooks.FirstOrDefault());

@@ -6,69 +6,75 @@ using System.Threading.Tasks;
 
 namespace Homework3
 {
-    public class Book
-    {
-        string id;
-        public string name { get; set; }
-        public uint year;
-        public uint pageCount;
-        public int wearLevel { get; set; }
-        public delegate void WearoutHandler(Book book);
+    public class Paper { 
+        string Id;
+        public string Name { get; set; }
+        public uint Year { get; set; }
+        public uint PageCount { get; set; }
+        public int WearLevel { get; set; }
+        public delegate void WearoutHandler(Paper book);
         public event WearoutHandler OnUsedBookReturn;
 
-        public Book(uint Year, string Name, uint PageCount, int WearLevel)
+        public Paper(uint year, string name, uint pageCount, int wearLevel)
         {
-            this.id = Convert.ToBase64String(Guid.NewGuid().ToByteArray());
+            Id = Convert.ToBase64String(Guid.NewGuid().ToByteArray());
 
-            if (Year >= 800 && Year <= DateTime.Now.Year)
-                this.year = Year;
+            if (year >= 800 && year <= DateTime.Now.Year)
+                Year = year;
             else
-                this.year = (uint)DateTime.Now.Year;
+                Year = (uint)DateTime.Now.Year;
 
-            this.name = Name;
+            Name = name;
 
-            this.pageCount = PageCount;
+            PageCount = pageCount;
 
-            if (WearLevel >= 0 && WearLevel <= 5)
-                this.wearLevel = WearLevel;
+            if (wearLevel >= 0 && wearLevel <= 5)
+                WearLevel = wearLevel;
             else
-                this.wearLevel = 0;
+                WearLevel = 0;
         }
 
         public void IncreaseWearLevel()
         {
-            if (this.wearLevel < 5)
-                this.wearLevel++;
-            if(this.wearLevel > 3)
+            if (WearLevel < 5)
+                WearLevel++;
+            if(WearLevel > 3)
                 OnUsedBookReturn?.Invoke(this);
         }
+    
+    }
+
+    public class Book : Paper
+    {
+        public Book(uint year, string name, uint pageCount, int wearLevel) : base(year, name, pageCount, wearLevel) { }
+       
     }
 
     public class Magazine : Book
     {
-        public int number;
+        public int Number;
 
-        public Magazine(int Number, uint Year, string Name, uint PageCount, int WearLevel) : base(Year, Name, PageCount, WearLevel)
+        public Magazine(int number, uint year, string name, uint pageCount, int wearLevel) : base(year, name, pageCount, wearLevel)
         {
-            if (Number < 0)
-                this.number = 0;
+            if (number < 0)
+                Number = 0;
 
-            else if (Number > 12)
-                this.number = 12;
+            else if (number > 12)
+                Number = 12;
 
             else
-                this.number = Number;
+                Number = number;
 
         }
 
         public static Magazine operator +(Magazine a, Magazine b)
         {
             return new Magazine(
-                (a.number + b.number) / 2,
-                a.year,
-                $"{a.name}, {b.name}",
-                (a.pageCount + b.pageCount) / 2,
-                a.wearLevel + b.wearLevel);
+                (a.Number + b.Number) / 2,
+                a.Year,
+                $"{a.Name}, {b.Name}",
+                (a.PageCount + b.PageCount) / 2,
+                a.WearLevel + b.WearLevel);
         }
     }
 }

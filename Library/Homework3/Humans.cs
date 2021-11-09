@@ -8,20 +8,20 @@ namespace Homework3
 {
     public class People
     {
-        public string name;
-        public uint age;
-        public string gender;
-        public List<Book> TakenBooks = new List<Book>();
+        public string Name;
+        public uint Age;
+        public string Gender;
+        public List<Paper> TakenBooks = new List<Paper>();
 
 
-        public People(string Name, uint Age, string Gender)
+        public People(string name, uint age, string gender)
         {
-            this.name = Name;
-            this.age = Age;
-            this.gender = Gender;
+            Name = name;
+            Age = age;
+            Gender = gender;
         }
 
-        public void Return(Book book)
+        public void Return(Paper book)
         {
             this.TakenBooks.Remove(book);
             Library.Storage.Add(book);
@@ -30,12 +30,12 @@ namespace Homework3
 
     public class Visitors : People
     {
-        public Visitors(string Name, uint Age, string Gender) : base(Name, Age, Gender) { }
+        public Visitors(string name, uint age, string gender) : base(name, age, gender) { }
       
     }
 
     public class Employers : People
     {       
-        public Employers(string Name, uint Age, string Gender) : base(Name, Age, Gender) { }
+        public Employers(string name, uint age, string gender) : base(name, age, gender) { }
     }
 }

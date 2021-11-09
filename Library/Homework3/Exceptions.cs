@@ -15,7 +15,7 @@ namespace Homework3
     }
     public class YouAreNotEmployeeException : LibraryException
     {
-        public YouAreNotEmployeeException()
+        public YouAreNotEmployeeException() : base()
         {
             Console.WriteLine("Error working with visitor");
         }
@@ -23,7 +23,7 @@ namespace Homework3
 
     public class YouAreNotVisitorException : LibraryException
     {
-        public YouAreNotVisitorException()
+        public YouAreNotVisitorException() : base()
         {
             Console.WriteLine("Error working with employee");
         }
