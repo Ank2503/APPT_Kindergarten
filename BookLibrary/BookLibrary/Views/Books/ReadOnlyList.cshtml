@@ -1,23 +1,26 @@
 ﻿@model IEnumerable<BookLibrary.Models.Book>
 
 @{
-    ViewBag.Title = "Movies";
+    ViewBag.Title = "Books";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Movies</h2>
+<h2>Books</h2>
+<br />
 <table class="table table-bordered table-hover">
     <thead>
         <tr>
             <th>Book</th>
+            <th>Take</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var book in Model)
         {
-            <tr>
-                <td>@book.Name</td>
-            </tr>
+        <tr>
+            <td>@book.Name</td>
+            <td><a asp-controller="Books" asp-action="Take" asp-route-id="@book.Id">Take</a></td>
+        </tr>
         }
     </tbody>
 </table>

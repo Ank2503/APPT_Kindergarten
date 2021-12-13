@@ -1,4 +1,5 @@
 using BookLibrary.Data;
+using BookLibrary.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -27,11 +28,15 @@ namespace BookLibrary
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDbContext>(options =>
+           services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+                .AddRoles<IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
+
+            string connectionString = "Server=(localdb)\\mssqllocaldb;Database=aspnet-BookLibrary-FCB67E06-C60A-4312-AF9E-92B1E1F80993;Trusted_Connection=True;MultipleActiveResultSets=true";
+            services.AddTransient<IUserRepository, UserRepository>(provider => new UserRepository(connectionString));
+
             services.AddControllersWithViews();
             services.AddRazorPages();
         }

@@ -1,0 +1,27 @@
+﻿
+
+@model IEnumerable<BookLibrary.Models.Book>
+@{
+    ViewData["Title"] = "List of books";
+}
+<h2>@ViewData["Title"]</h2>
+<p>
+    <a class="btn btn-primary" asp-controller="Books" asp-action="New">New Book</a>
+</p>
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Book</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var book in Model)
+        {
+        <tr>
+            <td><a asp-controller="Books" asp-action="Edit" asp-route-id="@book.Id">@book.Name</a></td>
+            <td><a asp-controller="Books" asp-action="Delete" asp-route-id="@book.Id">Delete</a></td>
+        </tr>
+        }
+    </tbody>
+</table>

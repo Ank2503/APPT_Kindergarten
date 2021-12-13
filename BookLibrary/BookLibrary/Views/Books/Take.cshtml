@@ -1,0 +1,13 @@
+﻿@model BookLibrary.Models.Book
+
+@{
+    ViewBag.Title = Model.Name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Are you sure you want to take a book "@Model.Name"?</h2>
+@using (Html.BeginForm("TakeBook", "Books"))
+{
+    @Html.HiddenFor(b => b.Id)
+    <button type="submit" class="btn btn-primary">Take</button>
+}

@@ -1,5 +1,6 @@
 ﻿using BookLibrary.Data;
 using BookLibrary.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace BookLibrary.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class CustomersController : Controller
     {
         private ApplicationDbContext _context;
@@ -23,14 +25,17 @@ namespace BookLibrary.Controllers
         }
         public ViewResult Index()
         {
-            var customers = _context.Customers.ToList();
+
+            //var allUsers = _context.Customers.ToList();
+
+            var customers = _context.Users.ToList();
 
             return View(customers);
         }
 
-        public IActionResult Details(int id)
+        public IActionResult Details(string id)
         {
-            var customer = _context.Customers.SingleOrDefault(c => c.Id == id);
+            var customer = _context.Users.SingleOrDefault(c => c.Id == id);
 
             if (customer == null)
                 return HttpNotFound();

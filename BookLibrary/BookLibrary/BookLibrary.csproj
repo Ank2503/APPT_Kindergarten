@@ -11,15 +11,28 @@
     <Compile Remove="Data\Migrations\20211129121727_Initialmodel.Designer.cs" />
     <Compile Remove="Data\Migrations\20211129122551_AddUserBookColumn.cs" />
     <Compile Remove="Data\Migrations\20211129122551_AddUserBookColumn.Designer.cs" />
+    <Compile Remove="Data\Migrations\20211129140704_AddBook.cs" />
+    <Compile Remove="Data\Migrations\20211129140704_AddBook.Designer.cs" />
+    <Compile Remove="Data\Migrations\20211209142233_addDrivingLicense.cs" />
+    <Compile Remove="Data\Migrations\20211209142233_addDrivingLicense.Designer.cs" />
+    <Compile Remove="Data\Migrations\20211212185639_ooo.cs" />
+    <Compile Remove="Data\Migrations\20211212185639_ooo.Designer.cs" />
+    <Compile Remove="Data\Migrations\20211212204622_changeUserBookTableAgaind.cs" />
+    <Compile Remove="Data\Migrations\20211212204622_changeUserBookTableAgaind.Designer.cs" />
+    <Compile Remove="Data\Migrations\20211212210607_FinalChangeUserBookTable2.cs" />
+    <Compile Remove="Data\Migrations\20211212210607_FinalChangeUserBookTable2.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Dapper" Version="2.0.123" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.21" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.21" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.21" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="4.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.21" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.21" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.21" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
   </ItemGroup>
 
 </Project>

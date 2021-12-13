@@ -1,7 +1,25 @@
-﻿@model BookLibrary.Models.Customer
+﻿@*@model BookLibrary.Models.Customer*@
 @{
-    ViewBag.Title = Model.Name;
+    ViewBag.Title = @Model.UserName;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>@Model.Name</h2>
+<h2>@Model.UserName</h2>
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Email confirmed</th>
+        </tr>
+    </thead>
+    <tbody>
+            <tr>
+                <td>@Model.Id</td>
+                <td>@Model.UserName</td>
+                <td>@Model.Email</td>
+                <td>@((@Model.EmailConfirmed) ? "Yes" : "No")</td>
+            </tr>
+    </tbody>
+</table>
