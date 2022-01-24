@@ -1,0 +1,42 @@
+﻿@model LibraryWeb.ViewModels.BooksViewModel
+@{
+    ViewBag.Title = "Books";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var takenBooks = Model.UserBook.Select(p => p.BookId).Distinct().ToArray();
+}
+
+<h2>@ViewData["Catalogue"]</h2>
+<a asp-action="AddBook" class="btn btn-outline-secondary">Add new book</a>
+<table class="table">
+    <tr>
+        <th>Book</th>
+        <th>Actions</th>
+    </tr>
+
+    @foreach (var item in Model.Book)
+    {
+        <tr>
+            <td>@item.Name</td>
+            <td>
+                <a asp-controller="Books" asp-action="Details" asp-route-id="@item.Id">Details</a>
+                @if (User.IsInRole("Admin"))
+                {
+                    @("|") <a asp-controller="Books" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                    @("|") <a asp-controller="Books" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                }
+                @if (User.IsInRole("Reader"))
+                {
+                    @if (!takenBooks.Contains(item.Id))
+                    {
+                        @("|") <a asp-controller="Books" asp-action="Take" asp-route-id="@item.Id">Take</a>
+                    }
+                    else if (Model.UserBook.Any(u => u.UserId == Model.CurrentUserId && u.BookId == item.Id))
+                    {
+                        @("|") <a asp-controller="Books" asp-action="Return" asp-route-id="@item.Id">Return</a>
+                    }
+                }
+            </td>
+        </tr >
+    }
+</table>

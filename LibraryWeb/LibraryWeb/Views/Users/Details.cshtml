@@ -1,0 +1,23 @@
+﻿@{
+    ViewBag.Title = @Model.UserName;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Model.UserName @ViewData["Title"]</h2>
+<table class="table">
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Email confirmed</th>
+    </tr>
+
+    <tr>
+        <td>@Model.Id</td>
+        <td>@Model.UserName</td>
+        <td>@Model.Email</td>
+        <td>
+            @((@Model.EmailConfirmed) ? "Yes" : "No")
+        </td>
+    </tr>
+</table>

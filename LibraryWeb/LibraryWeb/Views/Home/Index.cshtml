@@ -1,0 +1,38 @@
+﻿@model LibraryWeb.ViewModels.UserBooksViewModel
+@{
+    ViewBag.Title = "Home page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="text-center">
+    <h2 class="display-4">Welcome to the club, buddy</h2>
+</div>
+
+@if (User.IsInRole("Reader"))
+{
+    <h2>@ViewData["Your books"]</h2>
+    <a asp-controller="Books" asp-action="Index" class="btn btn-outline-secondary">Grab some books</a>
+    @if (Model == null || !Model.Book.Any())
+    {
+        <p>Your list is empty, pick something to read</p>
+    }
+    else
+    {
+    <table class="table">
+        <tr>
+            <th>Book</th>
+            <th>Actions</th>
+        </tr>
+
+        @foreach (var item in Model?.Book)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>
+                    <a asp-controller="Books" asp-action="Details" asp-route-id="@item.Id">Details</a> @("|")
+                    <a asp-controller="Books" asp-action="Return" asp-route-id="@item.Id">Return</a>
+                </td>
+            </tr>
+        }
+    </table>
+    }
+}

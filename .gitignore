@@ -15,3 +15,11 @@
 /CSVParser/.vs
 /CSVParser/CSVParser/obj
 /CSVParser/CSVParser/bin
+/LibraryWeb/.vs
+/LibraryWeb/LibraryWeb/bin
+/LibraryWeb/LibraryWeb/obj
+/LibraryWeb/LibraryWeb/Properties/serviceDependencies.local.json.user
+/LibraryWeb/LibraryWeb/Properties/serviceDependencies.local.json
+/LibraryWeb/LibraryWeb/appsettings.Development.json
+/LibraryWeb/LibraryWeb.Tests/bin
+/LibraryWeb/LibraryWeb.Tests/obj

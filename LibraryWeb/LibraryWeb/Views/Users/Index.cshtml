@@ -1,0 +1,28 @@
+﻿@{
+    ViewBag.Title = "Users";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@ViewData["Title"]</h2>
+<a asp-action="Create" class="btn btn-outline-secondary">Add new user</a>
+<table class="table">
+    <tr>
+        <th>User</th>
+        <th>Email</th>
+        <th>Actions</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+    <tr>
+        <td>@item.UserName</td>
+        <td>@item.Email</td>
+        <td>
+            <a asp-controller="Users" asp-action="Details" asp-route-id="@item.Id">Details</a> |
+            <a asp-controller="Users" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+            <a asp-controller="Users" asp-action="Delete" asp-route-id="@item.Id">Delete</a> |
+            <a asp-controller="Roles" asp-action="Edit" asp-route-userid="@item.Id">Roles</a>
+        </td>
+    </tr>
+    }
+</table>
