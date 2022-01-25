@@ -1,11 +1,7 @@
 ﻿using BookLibrary.Data;
-using BookLibrary.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace BookLibrary.Controllers
 {
@@ -25,21 +21,16 @@ namespace BookLibrary.Controllers
         }
         public ViewResult Index()
         {
-
             //var allUsers = _context.Customers.ToList();
-
             var customers = _context.Users.ToList();
-
             return View(customers);
         }
 
         public IActionResult Details(string id)
         {
             var customer = _context.Users.SingleOrDefault(c => c.Id == id);
-
             if (customer == null)
                 return HttpNotFound();
-
             return View(customer);
         }
 

@@ -21,6 +21,8 @@
     <Compile Remove="Data\Migrations\20211212204622_changeUserBookTableAgaind.Designer.cs" />
     <Compile Remove="Data\Migrations\20211212210607_FinalChangeUserBookTable2.cs" />
     <Compile Remove="Data\Migrations\20211212210607_FinalChangeUserBookTable2.Designer.cs" />
+    <Compile Remove="Data\Migrations\20211213004901_initialOne-to-one-Relationship.cs" />
+    <Compile Remove="Data\Migrations\20211213004901_initialOne-to-one-Relationship.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -33,6 +35,11 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.21" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.21" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
+    <PackageReference Include="xunit" Version="2.4.2-pre.12" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 
 </Project>

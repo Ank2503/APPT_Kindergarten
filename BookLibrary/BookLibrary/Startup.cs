@@ -2,17 +2,11 @@ using BookLibrary.Data;
 using BookLibrary.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace BookLibrary
 {
@@ -34,8 +28,7 @@ namespace BookLibrary
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddRoles<IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
 
-            string connectionString = "Server=(localdb)\\mssqllocaldb;Database=aspnet-BookLibrary-FCB67E06-C60A-4312-AF9E-92B1E1F80993;Trusted_Connection=True;MultipleActiveResultSets=true";
-            services.AddTransient<IUserRepository, UserRepository>(provider => new UserRepository(connectionString));
+            services.AddTransient<IBooksRepository, BooksRepository>();
 
             services.AddControllersWithViews();
             services.AddRazorPages();

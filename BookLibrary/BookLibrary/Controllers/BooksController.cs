@@ -1,41 +1,34 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using BookLibrary.Data;
+﻿using BookLibrary.Data;
 using BookLibrary.Models;
 using BookLibrary.ViewModels;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 using System.Security.Claims;
 
 namespace BookLibrary.Controllers
 {
     public class BooksController : Controller
     {
-        private ApplicationDbContext _context;
-
-        IUserRepository repo;
-
-        public BooksController(ApplicationDbContext context, IUserRepository r)
+        private readonly ApplicationDbContext _context;
+        private readonly IBooksRepository _repository;
+        public BooksController(ApplicationDbContext context, IBooksRepository repository)
         {
             _context = context;
-            repo = r;
+            _repository = repository;
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            _context.Dispose();
-        }
+        //protected override void Dispose(bool disposing)
+        //{
+        //    _context.Dispose();
+        //}
 
         public ViewResult Index()
         {
-            var books = repo.GetBooks();
+            var books = _repository.GetBooks();
             //var books = _context.Book.ToList();
-
             if (User.IsInRole("admin"))
                 return View("List", books);
-
             return View("ReadOnlyList", books);
         }
 
