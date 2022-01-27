@@ -12,6 +12,7 @@ namespace WebApplication2.Controllers
     public class AccountController : Controller
     {
         private readonly UserManager<User> _userManager;
+
         private readonly SignInManager<User> _signInManager;
 
         public AccountController(UserManager<User> userManager, SignInManager<User> signInManager)
@@ -19,11 +20,13 @@ namespace WebApplication2.Controllers
             _userManager = userManager;
             _signInManager = signInManager;
         }
+
         [HttpGet]
         public IActionResult Register()
         {
             return View();
         }
+
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
@@ -36,8 +39,10 @@ namespace WebApplication2.Controllers
                 {
                     await _signInManager.SignInAsync(user, false);
                     await _userManager.AddToRoleAsync(user, "visitor");
+
                     return RedirectToAction("Index", "Home");
                 }
+
                 else
                 {
                     foreach (var error in resultUser.Errors)
@@ -46,6 +51,7 @@ namespace WebApplication2.Controllers
                     }
                 }
             }
+
             return View(model);
         }
 
@@ -63,22 +69,26 @@ namespace WebApplication2.Controllers
             {
                 var result =
                     await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
+
                 if (result.Succeeded)
                 {
                     if (!string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl))
                     {
                         return Redirect(model.ReturnUrl);
                     }
+
                     else
                     {
                         return RedirectToAction("Index", "Home");
                     }
                 }
+
                 else
                 {
                     ModelState.AddModelError("", "Неправильный логин и (или) пароль");
                 }
             }
+
             return View(model);
         }
 
@@ -87,6 +97,7 @@ namespace WebApplication2.Controllers
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
+
             return RedirectToAction("Index", "Home");
         }
     }

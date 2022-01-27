@@ -9,9 +9,13 @@ namespace WebApplication2.Models
     public class UserBook
     {
         public int Id { get; set; }
+
         public string UserId { get; set; }
+
         public int? BookId { get; set; }
+
         public User User { get; set; }
+
         public Book Book { get; set; }
     }
 }

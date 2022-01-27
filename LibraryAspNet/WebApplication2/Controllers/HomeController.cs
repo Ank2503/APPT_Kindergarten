@@ -27,6 +27,7 @@ namespace WebApplication2.Controllers
         {
             ViewData["Books"] = await _db.Books.ToListAsync();
             ViewData["UserBooks"] = await _db.TakenBooks.ToListAsync();
+
             return View();
         }
 
@@ -34,11 +35,13 @@ namespace WebApplication2.Controllers
         {
             return View();
         }
+
         [HttpPost]
         public async Task<IActionResult> Create(Book book)
         {
             _db.Books.Add(book);
             await _db.SaveChangesAsync();
+
             return RedirectToAction("Index");
         }
 
@@ -52,14 +55,17 @@ namespace WebApplication2.Controllers
 
             _db.TakenBooks.Add(takenBook);
             await _db.SaveChangesAsync();
+
             return RedirectToAction("Index");
         }
 
         public async Task<IActionResult> Return(int? bookId)
         {
-            UserBook userBook = await _db.TakenBooks.FirstOrDefaultAsync(p => p.BookId == bookId && p.UserId == User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            UserBook userBook =
+                await _db.TakenBooks.FirstOrDefaultAsync(p => p.BookId == bookId && p.UserId == User.FindFirst(ClaimTypes.NameIdentifier).Value);
             _db.TakenBooks.Remove(userBook);
             await _db.SaveChangesAsync();
+
             return RedirectToAction("Index");
         }
 
