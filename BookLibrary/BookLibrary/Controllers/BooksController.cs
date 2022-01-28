@@ -12,24 +12,26 @@ namespace BookLibrary.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly IBooksRepository _repository;
+
         public BooksController(ApplicationDbContext context, IBooksRepository repository)
         {
             _context = context;
             _repository = repository;
         }
 
-        //protected override void Dispose(bool disposing)
-        //{
-        //    _context.Dispose();
-        //}
-
         public ViewResult Index()
         {
-            var books = _repository.GetBooks();
-            //var books = _context.Book.ToList();
+            var books = _repository.GetBooks().ToArray();
+            var userBooks = _context.UserBook.ToArray();
+
+            var takenBooks = userBooks.ToArray().Select(p => p.BookId).Distinct().ToArray();
+            var currentUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+            var booksVM = new BooksViewModel { Book = books, UserBook = userBooks, CurrentUserId = currentUserId };
+
             if (User.IsInRole("admin"))
-                return View("List", books);
-            return View("ReadOnlyList", books);
+                return View("List", booksVM);
+            return View("ReadOnlyList", booksVM);
         }
 
         [Authorize(Roles = "admin")]
@@ -62,6 +64,7 @@ namespace BookLibrary.Controllers
 
             return View(book);
         }
+
         public IActionResult Edit(int id)
         {
             var book = _context.Book.SingleOrDefault(b => b.Id == id);
@@ -79,7 +82,7 @@ namespace BookLibrary.Controllers
         [Authorize(Roles = "admin")]
         public IActionResult Delete(Book book)
         {
-                var bookInDb = _context.Book.Single(b => b.Id == book.Id);
+            var bookInDb = _context.Book.Single(b => b.Id == book.Id);
             _context.Book.Remove(bookInDb);
             _context.SaveChanges();
             return RedirectToAction("Index", "Books");
@@ -96,14 +99,14 @@ namespace BookLibrary.Controllers
         [Authorize]
         public IActionResult TakeBook(int id)
         {
-            var bookid = id;
+            var bookId = id;
             ClaimsPrincipal currentUser = User;
             var currentUserID = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
 
             var userBook = new UserBook
             {
                 UserId = currentUserID,
-                BookId = bookid
+                BookId = bookId
             };
 
             _context.UserBook.Add(userBook);
@@ -123,7 +126,6 @@ namespace BookLibrary.Controllers
         [Authorize]
         public IActionResult ReturnBook(int id)
         {
-
             UserBook returnedBook = _context.UserBook
                 .Where(b => b.BookId == id)
                 .FirstOrDefault();

@@ -1,8 +1,10 @@
-﻿@model IEnumerable<BookLibrary.Models.Book>
+﻿@model BookLibrary.ViewModels.BooksViewModel
 
 @{
     ViewBag.Title = "Books";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var takenBooks = Model.UserBook.Select(p => p.BookId).Distinct().ToArray();
 }
 
 <h2>Books</h2>
@@ -15,12 +17,26 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var book in Model)
+        @foreach (var book in Model.Book)
         {
         <tr>
             <td>@book.Name</td>
-            <td><a asp-controller="Books" asp-action="Take" asp-route-id="@book.Id">Take</a></td>
+            <td>
+                    @if (!takenBooks.Contains(book.Id))
+                    {
+                        <a asp-controller="Books" asp-action="Take" asp-route-id="@book.Id">Take</a>
+                    }
+                    else if (Model.UserBook.Any(u => u.UserId == Model.CurrentUserId && u.BookId == book.Id))
+                    {
+                        <a asp-controller="Books" asp-action="Return" asp-route-id="@book.Id">Return</a>
+                    }
+                    else
+                    {
+                        <span>Not available</span>
+                    }
+            </td>
         </tr>
+
         }
     </tbody>
 </table>
