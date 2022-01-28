@@ -1,13 +1,13 @@
-﻿@model BookLibrary.Models.Book
+﻿@model BookLibrary.ViewModels.BookFormViewModel
 
 @{
-    ViewBag.Title = Model.Name;
+    ViewBag.Title = Model.Book.Name;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Are you sure you want to take a book "@Model.Name"?</h2>
+<h2>Are you sure you want to take a book "@Model.Book.Name"?</h2>
 @using (Html.BeginForm("TakeBook", "Books"))
 {
-    @Html.HiddenFor(b => b.Id)
+    @Html.HiddenFor(b => b.Book.Id)
     <button type="submit" class="btn btn-primary">Take</button>
 }
