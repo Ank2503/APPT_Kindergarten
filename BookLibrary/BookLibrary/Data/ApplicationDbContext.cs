@@ -6,6 +6,7 @@ namespace BookLibrary.Data
 {
     public class ApplicationDbContext : IdentityDbContext
     {
+        //public DbSet<Customer> Customers { get; set; }
         public DbSet<Book> Book { get; set; }
         public DbSet<UserBook> UserBook { get; set; }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
