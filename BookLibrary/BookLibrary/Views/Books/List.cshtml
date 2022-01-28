@@ -1,6 +1,6 @@
 ﻿
 
-@model IEnumerable<BookLibrary.Models.Book>
+@model BookLibrary.ViewModels.BooksViewModel
 @{
     ViewData["Title"] = "List of books";
 }
@@ -16,7 +16,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var book in Model)
+        @foreach (var book in Model.Book)
         {
         <tr>
             <td><a asp-controller="Books" asp-action="Edit" asp-route-id="@book.Id">@book.Name</a></td>

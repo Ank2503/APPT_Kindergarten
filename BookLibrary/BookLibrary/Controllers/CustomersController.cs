@@ -19,9 +19,9 @@ namespace BookLibrary.Controllers
         {
             _context.Dispose();
         }
+
         public ViewResult Index()
         {
-            //var allUsers = _context.Customers.ToList();
             var customers = _context.Users.ToList();
             return View(customers);
         }
