@@ -33,6 +33,10 @@ namespace LibraryWeb
             services.AddTransient<IBookRepository, BookRepository>(provider 
                 => new BookRepository(Configuration.GetConnectionString("DefaultConnection")));
 
+            services.AddOptions();
+            
+            services.Configure<SeedMigration>(Configuration.GetSection("SeedMigration"));
+
             services.AddControllersWithViews();
             services.AddRazorPages();
         }

@@ -52,7 +52,6 @@ namespace LibraryWeb.Controllers
         {
             if (id != null)
             {
-                //var book = await DbContext.Book.FirstOrDefaultAsync(b => b.Id == id);
                 var book = _repository.Get(id);
 
                 if (book != null)
@@ -67,7 +66,6 @@ namespace LibraryWeb.Controllers
         {
             if (id != null)
             {
-                //var book = await DbContext.Book.FirstOrDefaultAsync(b => b.Id == id);
                 var book = _repository.Get(id);
 
                 if (book != null)
@@ -95,7 +93,6 @@ namespace LibraryWeb.Controllers
             if (id == null)
                 return NotFound();
            
-            //var book = await DbContext.Book.FirstOrDefaultAsync(b => b.Id == id);
             var book = _repository.Get(id);
 
             if (book != null)
@@ -134,7 +131,8 @@ namespace LibraryWeb.Controllers
                 return NotFound();
 
             var currentUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            var userBook = await DbContext.UserBook.FirstOrDefaultAsync(ub => ub.BookId == id && ub.UserId == currentUserId);
+            var userBook = await DbContext.UserBook.FirstOrDefaultAsync(ub => ub.BookId == id && 
+                ub.UserId == currentUserId);
 
             if (userBook != null)
             {
