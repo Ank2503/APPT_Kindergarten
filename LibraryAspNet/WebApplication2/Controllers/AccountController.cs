@@ -33,11 +33,13 @@ namespace WebApplication2.Controllers
             if (ModelState.IsValid)
             {
                 User user = new User { Email = model.Email, UserName = model.Email, Year = model.Year };
+
                 var resultUser = await _userManager.CreateAsync(user, model.Password);       
 
                 if (resultUser.Succeeded)
                 {
                     await _signInManager.SignInAsync(user, false);
+
                     await _userManager.AddToRoleAsync(user, "visitor");
 
                     return RedirectToAction("Index", "Home");
@@ -76,16 +78,14 @@ namespace WebApplication2.Controllers
                     {
                         return Redirect(model.ReturnUrl);
                     }
-
                     else
                     {
                         return RedirectToAction("Index", "Home");
                     }
                 }
-
                 else
                 {
-                    ModelState.AddModelError("", "Неправильный логин и (или) пароль");
+                    ModelState.AddModelError("", "Incorrect data");
                 }
             }
 

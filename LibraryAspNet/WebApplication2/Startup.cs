@@ -1,15 +1,8 @@
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using WebApplication2.Models;
 
 namespace WebApplication2
@@ -30,6 +23,9 @@ namespace WebApplication2
 
             services.AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationContext>();
+
+            services.AddTransient<IBookRepository, BookRepository>(provider
+               => new BookRepository(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddControllersWithViews();
         }

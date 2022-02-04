@@ -1,6 +1,6 @@
 ﻿@model WebApplication2.ViewModels.LoginViewModel
 
-<h2>Вход в приложение</h2>
+<h2>Login form</h2>
 <form method="post" asp-controller="Account" asp-action="Login"
       asp-route-returnUrl="@Model.ReturnUrl">
     <div asp-validation-summary="ModelOnly"></div>
@@ -20,6 +20,6 @@
 
     </div>
     <div>
-        <input type="submit" value="Войти" />
+        <input type="submit" value="Authorize" />
     </div>
 </form>

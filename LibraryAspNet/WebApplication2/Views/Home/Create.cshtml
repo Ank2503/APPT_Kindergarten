@@ -1,6 +1,6 @@
 ﻿@model WebApplication2.Models.Book
 @{
-    ViewBag.Title = "Добавление книги";
+    ViewBag.Title = "Book adding";
 }
 <form asp-action="create" asp-controller="home">
     <div class="form-group">
@@ -8,6 +8,6 @@
         <input type="text" asp-for="Name" class="form-control" />
     </div>
     <div class="form-group">
-        <input type="submit" value="Отправить" class="btn btn-default" />
+        <input type="submit" value="Add a book" class="btn btn-default" />
     </div>
 </form>

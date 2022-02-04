@@ -1,54 +1,53 @@
 ﻿@using WebApplication2.Models
 @using System.Security.Claims;
 @{
-    ViewBag.Title = "Все пользователи";
-    IEnumerable<Book> books = ViewData["Books"] as IEnumerable<Book>;
-    IEnumerable<UserBook> userbooks = ViewData["UserBooks"] as IEnumerable<UserBook>;
+    ViewBag.Title = "List of all Books";
+    IEnumerable<UserBook> userBooks = Model.UserBook as IEnumerable<UserBook>;
 }
 
 @if (User.IsInRole("admin"))
 {
-    <a asp-action="Create">Добавить книгу</a>
+    <a asp-action="Create">Add a book</a>
 }
 <table class="table">
     <tr><td>ID</td><td>Book</td><td>Actions</td></tr>
-    @foreach (var item in books)
+    @foreach (var item in Model.Book)
     {
-<tr>
-    <td asp-for="Id">@item.Id</td>
-    <td asp-for="Name">@item.Name</td>
+        <tr>
+            <td asp-for="Id">@item.Id</td>
+            <td asp-for="Name">@item.Name</td>
 
-    @if (User.Identity.IsAuthenticated)
-    {
-        @if (userbooks.Any(t => t.BookId == item.Id))
-        {
-            if (userbooks.Any(t => t.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier)))
+            @if (User.Identity.IsAuthenticated)
             {
-                <td>
-                    <form asp-action="return" asp-controller="home">
-                        <input type="hidden" id="bookId" name="bookId" value=@item.Id class="form-control">
-                        <input type="submit" value="Отдать книгу" class="btn btn-default">
-                    </form>
-                </td>
-            }
-            else
-            {
-                <td>Занято</td>
+                @if (userBooks.Any(t => t.BookId == item.Id))
+                {
+                    if (userBooks.Any(t => t.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier)))
+                    {
+                        <td>
+                            <form asp-action="return" asp-controller="home">
+                                <input type="hidden" id="bookId" name="bookId" value=@item.Id class="form-control">
+                                <input type="submit" value="Return the book" class="btn btn-default">
+                            </form>
+                        </td>
+                    }
+                    else
+                    {
+                        <td>Book is taken</td>
 
+                    }
+
+                }
+                else
+                {
+                    <td>
+                        <form asp-action="take" asp-controller="home">
+                            <input type="hidden" id="bookId" name="bookId" value=@item.Id class="form-control">
+                            <input type="submit" value="Take the book" class="btn btn-default">
+                        </form>
+                    </td>
+                }
             }
 
-        }
-        else
-        {
-            <td>
-                <form asp-action="take" asp-controller="home">
-                    <input type="hidden" id="bookId" name="bookId" value=@item.Id class="form-control">
-                    <input type="submit" value="Взять Книгу" class="btn btn-default">
-                </form>
-            </td>
-        }
+        </tr>
     }
-
-</tr>
-        }
-        </table>
+</table>

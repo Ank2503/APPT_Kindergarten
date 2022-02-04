@@ -9,26 +9,31 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using WebApplication2.Models;
+using WebApplication2.ViewModels;
 
 namespace WebApplication2.Controllers
 {
     public class HomeController : Controller
     {
         private ApplicationContext _db;
+        private IBookRepository _repository;
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger, ApplicationContext context)
+        public HomeController(ILogger<HomeController> logger, ApplicationContext context, IBookRepository bookRepository)
         {
+            _repository = bookRepository;
             _db = context;
             _logger = logger;
         }
 
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            ViewData["Books"] = await _db.Books.ToListAsync();
-            ViewData["UserBooks"] = await _db.TakenBooks.ToListAsync();
+            var books = _repository.GetBooks();
+            var userBooks = _repository.GetUserBooks();
 
-            return View();
+            var bookView = new BookViewModel { Book = books, UserBook = userBooks };
+
+            return View(bookView);
         }
 
         public IActionResult Create()
