@@ -66,10 +66,10 @@ namespace LibraryApp.Tests
         {
             var books = new List<Book>
             {
-                new Book { Id=1, Name="Phantoms in the Brain: Probing the Mysteries of the Human Mind – V.S. Ramachandran and Sandra Blakeslee"},
-                new Book { Id=2, Name="The Language Instinct: How the Mind Creates Language – Steven Pinker"},
-                new Book { Id=3, Name="C#. Basics"},
-                new Book { Id=4, Name="Romeo and Juliet"}
+                new Book { Id=1, Name="test1"},
+                new Book { Id=2, Name="test2"},
+                new Book { Id=3, Name="test3"},
+                new Book { Id=4, Name="test4"}
             };
             return books;
         }
