@@ -42,6 +42,7 @@ namespace BookLibrary.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "admin")]
         public IActionResult Save(Book book)
         {
             if(book.Id == 0)
@@ -65,6 +66,7 @@ namespace BookLibrary.Controllers
             return View(book);
         }
 
+        [Authorize(Roles = "admin")]
         public IActionResult Edit(int id)
         {
             var book = _context.Book.SingleOrDefault(b => b.Id == id);

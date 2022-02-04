@@ -5,18 +5,23 @@ using Moq;
 using System.Collections.Generic;
 using System.Linq;
 using Xunit;
+using Bogus;
+using Bogus.Extensions;
+using BookLibrary.Data;
 
 namespace BookLibrary.Tests
 {
     public class BooksControllerTests
     {
+        private readonly ApplicationDbContext _context;
+
         [Fact]
         public void IndexReturnsAViewResultWithAListOfBooks()
         {
             // Arrange
             var mock = new Mock<IBooksRepository>();
             mock.Setup(repo => repo.GetBooks()).Returns(GetTestBooks());
-            var controller = new BooksController(null, mock.Object);
+            var controller = new BooksController(_context, mock.Object);
 
             // Act
             var result = controller.Index();
