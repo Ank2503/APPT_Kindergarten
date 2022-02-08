@@ -1,9 +1,8 @@
-﻿using LibraryWeb.Data;
-using LibraryWeb.Models;
+﻿using LibraryWeb.Models;
+using LibraryWeb.Services;
 using LibraryWeb.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
@@ -11,19 +10,21 @@ using System.Threading.Tasks;
 
 namespace LibraryWeb.Controllers
 {
-    public class BooksController : BaseController
+    public class BooksController : Controller
     {
-        private readonly IBookRepository _repository;
+        private readonly IBookService _bookService;
+        private readonly IUserBookService _userBookService;
 
-        public BooksController(ApplicationDbContext context, IBookRepository repository) : base(context)
+        public BooksController(IBookService bookService, IUserBookService userBookService)
         {
-            _repository = repository;
+            _bookService = bookService;
+            _userBookService = userBookService;
         }
 
         public ViewResult Index()
         {
-            var books = _repository.GetBooks().ToArray();
-            var userBooks = DbContext.UserBook.ToArray();
+            var books = _bookService.GetBooks().ToArray();
+            var userBooks = _userBookService.UserBooks.ToArray();
 
             var takenBooks = userBooks.ToArray().Select(p => p.BookId).Distinct().ToArray();
             var currentUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
@@ -42,8 +43,7 @@ namespace LibraryWeb.Controllers
         [HttpPost]
         public async Task<IActionResult> AddBook(Book book)
         {
-            DbContext.Book.Add(book);
-            await DbContext.SaveChangesAsync();
+            await _bookService.AddBook(book);
 
             return RedirectToAction("Index");
         }
@@ -52,7 +52,7 @@ namespace LibraryWeb.Controllers
         {
             if (id != null)
             {
-                var book = _repository.Get(id);
+                var book = _bookService.GetBook(id);
 
                 if (book != null)
                     return View(book);
@@ -66,7 +66,7 @@ namespace LibraryWeb.Controllers
         {
             if (id != null)
             {
-                var book = _repository.Get(id);
+                var book = _bookService.GetBook(id);
 
                 if (book != null)
                     return View(book);
@@ -81,8 +81,7 @@ namespace LibraryWeb.Controllers
             if (book == null)
                 return NotFound();
 
-            DbContext.Book.Update(book);
-            await DbContext.SaveChangesAsync();
+            await _bookService.UpdateBook(book);
 
             return RedirectToAction("Index");
         }
@@ -93,13 +92,10 @@ namespace LibraryWeb.Controllers
             if (id == null)
                 return NotFound();
            
-            var book = _repository.Get(id);
+            var book = _bookService.GetBook(id);
 
-            if (book != null)
-            {
-                DbContext.Entry(book).State = EntityState.Deleted;
-                await DbContext.SaveChangesAsync();
-            }
+            if (book != null)            
+                await _bookService.DeleteBook(book);            
 
             return RedirectToAction("Index");                            
         }
@@ -118,8 +114,7 @@ namespace LibraryWeb.Controllers
                 BookId = (int)id
             };
            
-            DbContext.UserBook.Add(userBook);
-            await DbContext.SaveChangesAsync();
+            await _userBookService.AddUserBook(userBook);
 
             return RedirectToAction("Index");
         }
@@ -131,14 +126,11 @@ namespace LibraryWeb.Controllers
                 return NotFound();
 
             var currentUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            var userBook = await DbContext.UserBook.FirstOrDefaultAsync(ub => ub.BookId == id && 
+            var userBook = _userBookService.UserBooks.FirstOrDefault(ub => ub.BookId == id && 
                 ub.UserId == currentUserId);
 
-            if (userBook != null)
-            {
-                DbContext.Entry(userBook).State = EntityState.Deleted;
-                await DbContext.SaveChangesAsync();
-            }
+            if (userBook != null)            
+                await _userBookService.DeleteUserBook(userBook);            
             
             return Redirect(Request.Headers["Referer"].ToString());
         }

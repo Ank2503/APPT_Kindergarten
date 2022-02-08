@@ -1,40 +1,36 @@
-﻿using LibraryWeb.Data;
-using LibraryWeb.Models;
+﻿using LibraryWeb.Services;
 using LibraryWeb.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System.Diagnostics;
 using System.Linq;
 using System.Security.Claims;
 
 namespace LibraryWeb.Controllers
 {
-    public class HomeController : BaseController
+    public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IBookService _bookService;
+        private readonly IUserBookService _userBookService;
 
-        public HomeController(ILogger<HomeController> logger, ApplicationDbContext context) : base(context)
+        public HomeController(ILogger<HomeController> logger, IBookService bookService, IUserBookService userBookService)
         {            
             _logger = logger;
+            _bookService = bookService;
+            _userBookService = userBookService;
         }
 
         public IActionResult Index()
         {
             var currentUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
-            var userBooksId = DbContext.UserBook
+            var userBooksId = _userBookService.UserBooks
                             .Where(ub => ub.UserId == currentUserId)
                             .Select(s => s.BookId).ToArray();
 
-            var userBooks = DbContext.Book.Where(b => userBooksId.Contains(b.Id)).ToArray();
+            var userBooks = _bookService.GetBooks().Where(b => userBooksId.Contains(b.Id)).ToArray();
 
             return View(new UserBooksViewModel { Book = userBooks });
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }

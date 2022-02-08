@@ -1,5 +1,4 @@
-﻿using LibraryWeb.Data;
-using LibraryWeb.ViewModels;
+﻿using LibraryWeb.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -9,12 +8,11 @@ using System.Threading.Tasks;
 namespace LibraryWeb.Controllers
 {
     [Authorize(Roles = "Admin")]
-    public class UsersController : BaseController
+    public class UsersController : Controller
     {
         UserManager<IdentityUser> _userManager;
 
-        public UsersController(ApplicationDbContext context, 
-            UserManager<IdentityUser> manager) : base (context)
+        public UsersController(UserManager<IdentityUser> manager)
         {
             _userManager = manager;
         }

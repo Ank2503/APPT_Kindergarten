@@ -1,5 +1,5 @@
 using LibraryWeb.Data;
-using LibraryWeb.Models;
+using LibraryWeb.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -30,8 +30,8 @@ namespace LibraryWeb
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
-            services.AddTransient<IBookRepository, BookRepository>(provider 
-                => new BookRepository(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddScoped<IBookService, BookService>();
+            services.AddScoped<IUserBookService, UserBookService>();
 
             services.AddOptions();
             
