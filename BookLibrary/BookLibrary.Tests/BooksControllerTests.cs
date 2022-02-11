@@ -33,7 +33,6 @@ namespace BookLibrary.Tests
             // Assert
             var viewResult = Assert.IsType<ViewResult>(result);
             var model = Assert.IsAssignableFrom<BooksViewModel>(viewResult.Model);
-            //Assert.Equal(GetTestBooks().Count, model.Count());
         }
         private List<Book> GetTestBooks()
         {
