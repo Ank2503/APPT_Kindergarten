@@ -94,10 +94,10 @@ namespace LibraryWeb.Controllers
            
             var book = _bookService.GetBook(id);
 
-            if (book != null)            
-                await _bookService.DeleteBook(book);            
+            if (book != null)
+                await _bookService.DeleteBook(book);
 
-            return RedirectToAction("Index");                            
+            return RedirectToAction("Index");
         }
 
         [Authorize(Roles = "Reader")]
@@ -129,8 +129,8 @@ namespace LibraryWeb.Controllers
             var userBook = _userBookService.UserBooks.FirstOrDefault(ub => ub.BookId == id && 
                 ub.UserId == currentUserId);
 
-            if (userBook != null)            
-                await _userBookService.DeleteUserBook(userBook);            
+            if (userBook != null)
+                await _userBookService.DeleteUserBook(userBook);
             
             return Redirect(Request.Headers["Referer"].ToString());
         }

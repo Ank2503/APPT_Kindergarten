@@ -9,7 +9,7 @@ namespace LibraryWeb.Tests
         {
             Faker.RuleFor(a => a.Id, f => f.IndexFaker);
 
-            Faker.RuleFor(a => a.Name, f => f.Lorem.Text());            
+            Faker.RuleFor(a => a.Name, f => f.Lorem.Text());
         }
     }
 }

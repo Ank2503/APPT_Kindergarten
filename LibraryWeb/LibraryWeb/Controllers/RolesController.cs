@@ -39,8 +39,8 @@ namespace LibraryWeb.Controllers
             }
             else
             {
-                foreach (var error in result.Errors)                    
-                    ModelState.AddModelError(string.Empty, error.Description);                    
+                foreach (var error in result.Errors)
+                    ModelState.AddModelError(string.Empty, error.Description);
             }
 
             return View(name);
@@ -76,7 +76,7 @@ namespace LibraryWeb.Controllers
                 AllRoles = allRoles
             };
 
-            return View(model);            
+            return View(model);
         }
 
         [HttpPost]
@@ -87,7 +87,7 @@ namespace LibraryWeb.Controllers
             if (user == null)
                 return NotFound();
                         
-            var userRoles = await _userManager.GetRolesAsync(user);                        
+            var userRoles = await _userManager.GetRolesAsync(user);
             var addedRoles = roles.Except(userRoles);
             var removedRoles = userRoles.Except(roles);
 
